@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+
+{% block content %}
+<div class="container mt-2">
+  <h2>Calculadora nutricional para niños</h2>
+  <div class="container mt-4 min-vw-60">
+
+    <form action="{{ url_for('calculator.calculate') }}" method="POST" class="container">
+      <div class="mb-3">
+        <label for="name" class="form-label"><b>Nombre</b></label>
+        <input type="text" class="form-control" id="name" name="name" aria-describedby="name_help" required>
+      </div>
+      <div class="mb-3">
+        <label for="age" class="form-label"><b>Edad</b></label>
+        <input type="number" min="5" max="17" class="form-control" id="age" name="age" aria-describedby="age_help"
+          required>
+        <div id="age_help" class="form-text">La edad debe estar entre 5 y 17</div>
+      </div>
+      <div class="mb-3">
+        <label for="weight" class="form-label"><b>Peso</b></label>
+        <input type="number" step="0.1" min="0.1" class="form-control" id="weight" name="weight"
+          aria-describedby="weight_help" required>
+        <div id="weight_help" class="form-text">El peso debe ser mayor a 0</div>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Calcular</button>
+    </form>
+  </div>
+</div>
+
+{% endblock %}

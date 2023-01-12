@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+
+
+{% block content %}
+<div class="container mt-2">
+    <h2>Estado nutricional</h2>
+    <div class="container mt-4">
+        <p>Fecha: <b>{{current_date}}</b></p>
+        <p>Paciente <b>{{name}}</b> con edad <b>{{age}}</b> y peso <b>{{weight}} kg </b>presenta
+            <b>{{result['situacion_nutricional_actual']['tipo']}}</b>.
+        </p>
+        <p>Se sugiere la siguiente receta diaria
+            {% if result['situacion_nutricional_actual']['tipo'] != 'peso saludable' %}<span><b>{{result['dias']}}</b>
+                por dias para obtener el peso de
+                <b>{{result['situacion_nutricional_actual']['objetivo']}} kg</b>.</span>{% endif %}
+        </p>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Grupos nutricionales</th>
+                    <th scope="col"># Porciones</th>
+                    <th scope="col">Cantidad(gramos)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">Carbohidratos</th>
+                    <td>{{result['receta']['porciones']['pc']}}</td>
+                    <td>{{result['receta']['cantidad']['c']*1000}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Proteina</td>
+                    <td>{{result['receta']['porciones']['pp']}}</td>
+                    <td>{{result['receta']['cantidad']['p']*1000}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Verduras</td>
+                    <td>{{result['receta']['porciones']['pv']}}</td>
+                    <td>{{(-1)*result['receta']['cantidad']['v']*1000}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <p>Tener presente agendar cita nuevamente para seguimiento.</p>
+        <a href="{{url_for('calculator.form_calculator')}}" type="button" class="btn btn-secondary">Regresar</a>
+
+    </div>
+</div>
+
+
+{% endblock %}
